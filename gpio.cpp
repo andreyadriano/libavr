@@ -16,24 +16,24 @@ GPIO::GPIO(int pin, int mode)
 
     if (port == PORT_B)
     {
-        if (mode == INPUT)
+        if (mode == OUTPUT)
         {
             // RMU - read, modify, update
             DDRB |= mask;
         }
-        else if (mode==OUTPUT)
+        else if (mode==INPUT)
         {
             DDRB &= ~mask;
         }
     }
     else if (port == PORT_D)
     {
-        if (mode == INPUT)
+        if (mode == OUTPUT)
         {
             // RMU - read, modify, update
             DDRD |= mask;
         }
-        else if (mode==OUTPUT)
+        else if (mode==INPUT)
         {
             DDRD &= ~mask;
         }
@@ -65,11 +65,19 @@ void GPIO::write(bool valor)
         if(valor){
             PORTB |= mask;
         }
+        else
+        {
+            PORTB &= ~mask;
+        }
     }
     else if (port == PORT_D)
     {
         if(valor){
-            PORTD &= mask;
+            PORTD |= mask;
+        }
+        else
+        {
+            PORTD &= ~mask;
         }
     }
 }
