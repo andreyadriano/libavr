@@ -11,7 +11,7 @@ GPIO::GPIO(int pin, int mode)
     else // PORTB
     {
         port = PORT_B;
-        mask = (1 << pin-8);
+        mask = (1 << (pin-8));
     }
 
     if (port == PORT_B)
@@ -62,10 +62,14 @@ void GPIO::write(bool valor)
 {
     if(port == PORT_B)
     {
-        PINB &= mask;
+        if(valor){
+            PORTB |= mask;
+        }
     }
     else if (port == PORT_D)
     {
-        PIND &= mask;
+        if(valor){
+            PORTD &= mask;
+        }
     }
 }
