@@ -8,6 +8,7 @@ UART uart;
 void setup()
 {
     uart.puts("Setup\n");
+    uart.put(uart.get()+1);
 }
 
 void loop()
