@@ -1,12 +1,21 @@
 #include "gpio.h"
 #include <avr/io.h>
+#include <avr/interrupt.h>
+
+GPIO::IntHandler_t GPIO::int_handler[2] = {0,0};
 
 GPIO::GPIO(int pin, int mode)
+
+{
+    initialize_port(pin,mode);
+}
+void GPIO::initialize_port(int pin,int mode)
 {
     if (pin<8) // PORTD
     {
         port = PORT_D;
         mask = (1 << pin);
+        
     }
     else // PORTB
     {
@@ -40,6 +49,22 @@ GPIO::GPIO(int pin, int mode)
     }
 }
 
+GPIO::GPIO(int pin, int mode,IntHandler_t handler)
+
+{
+    initialize_port(pin,mode);
+    int i =pin - 2;
+    int int_mask= 0x3 <<2*i;
+
+    int_handler[i] = handler;
+
+    unsigned char sense = (mode-3) << 2 * i;
+    EICRA = (EICRA & ~int_mask) | sense;
+
+    EIMSK |= 0x01 << i;
+
+}
+
 GPIO::~GPIO()
 {
 
@@ -66,18 +91,29 @@ void GPIO::write(bool valor)
             PORTB |= mask;
         }
         else
-        {
-            PORTB &= ~mask;
-        }
+    {
+        PORTB &= ~mask;
     }
+    }
+    
     else if (port == PORT_D)
     {
         if(valor){
             PORTD |= mask;
         }
-        else
+        else 
         {
-            PORTD &= ~mask;
+            PORTD &= mask;
         }
     }
+}
+
+ISR(INT0_vect)
+{
+    GPIO::int_handler[0]();
+}
+
+ISR(INT1_vect)
+{
+    GPIO::int_handler[1]();
 }
