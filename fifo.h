@@ -14,7 +14,6 @@ Fifo(): s(0) , h(0), t(0){}
 
 void push(T d)
 {
-    while(s == N);    
     data[t]=d;
     t = (t+1) % N;
     s++;
@@ -23,7 +22,6 @@ void push(T d)
 
 T pop()
 {
-    while(s == 0);
     T ret = data[h];
     h = (h+1) % N;
     s--;
@@ -35,9 +33,12 @@ int size()
     return s;
 }
 
+const int capacity()
+{
+    return N;
+}
+
 };
-
-
 
 #endif
 

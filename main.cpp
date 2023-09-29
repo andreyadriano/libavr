@@ -33,7 +33,7 @@ void loop()
 {
     led.write(state);
     if (button.read()==1)
-        uart.sync_puts("Button\n");
+        uart.puts("Button\n");
     
     while(uart.available() > 0)
     {
@@ -41,7 +41,7 @@ void loop()
 
         char buf[32];
         sprintf(buf,"O valor incrementado é: %c\n", c);
-        uart.sync_puts(buf);
+        uart.puts(buf);
     }
     
 }
