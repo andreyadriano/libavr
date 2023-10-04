@@ -1,5 +1,5 @@
-#ifndef __ADC_CHANNEL__
-#define __ADC_CHANNEL__
+#ifndef __ADC_H__
+#define __ADC_H__
 
 #include "fifo.h"
 
