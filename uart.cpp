@@ -57,7 +57,9 @@ void UART::put(unsigned char data )
 {
     while (TxFifo.size() >= TxFifo.capacity()) ;
 
+    cli();
     TxFifo.push(data);
+    sei();
     UCSR0B |= (1 << UDRIE0);
 }
 
@@ -71,7 +73,10 @@ void UART::puts(const char * str)
 unsigned char UART::get()
 {
     while(RxFifo.size() == 0) ;
-    return RxFifo.pop();
+    cli();
+    unsigned char data = RxFifo.pop();
+    sei();
+    return data;
 }
 
 ISR(USART_RX_vect) {UART::rxc_handler();}
