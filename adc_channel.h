@@ -11,10 +11,14 @@ public:
 
     int get();
     int sample();
+    void start();
+    void stop();
+    static void adc_isr_handler();
 
 private:
     int channel;
-    static void isr_handler();
+    Fifo<int,32> ADCFifo;
+    static ADC_Channel * activeChannel;
 };
 
 #endif
