@@ -24,3 +24,18 @@ A biblioteca inclui um Makefile com as regras para geração do binário e progr
 Para gerar o binário e programar o Arduino: make all
 
 Para limpar o ambiente, excluindo os binários gerados: make clean
+
+## Diagrama UML
+![uml](figs/uml.png)
+
+## FIFO
+A FIFO foi implementada para ser usada na UART e no ADC. Ela é uma estrutura de dados cuja função principal é garantir que os dados armazenados sejam processados na ordem em que foram recebidos (first in first out).
+
+## UART
+A UART permite a comunicação serial de dados entre um microcontrolador e outro dispositivo, como sensores e módulos, permitindo tanto o envio quanto a recepção de dados. Ela utiliza uma FIFO de transmissão e outra de recepção para armazenar os dados temporariamente antes de sua transmissão/processamento. A taxa de baud utilizada nesta UART é de 9600 bps.
+
+## GPIO
+O GPIO permite a leitura e escrita nos pinos de entrada e saída digital do microcontrolador. Ele possui funções para configurar o pino como entrada ou saída e para escrever ou ler o valor do pino.
+
+## ADC
+O ADC serve para realizar a conversão de um sinal analógico em um sinal digital em múltiplos canais. Ele utilza uma FIFO para armazenar os dados que são convertidos e trabalha fazendo uma conversão por vez. Ele faz a conversão medindo a tensão em um pino de entrada analógica e transforma o valor em um número de 10 bits (0 a 1023).
