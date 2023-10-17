@@ -10,6 +10,7 @@ GPIO led(13, GPIO::OUTPUT);
 GPIO button(3, GPIO::INTERRUPT_RISING,int0_handler);
 UART uart;
 ADC_Channel adc(0);
+ADC_Channel adc1(1);
 
 bool state;
 
@@ -45,8 +46,9 @@ void loop()
         sprintf(buf,"O valor incrementado é: %c\n", c);
         uart.puts(buf);
     }
-
-    sprintf(buf, "O ADC leu: %d\n", adc.sample());
+    
+    adc.start();
+    sprintf(buf, "O ADC leu: %d\n", adc.get());
     uart.puts(buf);
 }
 
