@@ -32,7 +32,7 @@ void ADC_Channel::start()
     active_channel = this;
     ADCSRA |= (0 << ADEN);
     ADMUX = (ADMUX&0xF0) | (channel&0x0F);
-    ADCSRA |= (1 << ADIE) | (1 << ADEN) | (1 << ADSC); // se setar o ADATE ele trava, testamos com ADIE
+    ADCSRA |= (1 << ADIE) | (1 << ADEN) | (1 << ADSC); // se setar o ADATE ele trava, testamos com ADIE e pelo menos não travou
 }
 
 void ADC_Channel::stop()
@@ -64,5 +64,5 @@ void ADC_Channel::adc_isr_handler()
     active_channel->adc_fifo.push(ADC);
     sei();
     // teste
-    ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // seta o prescaler para 128 de novo
+    ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // seta o prescaler para 128 de novo (desativou ao ocorrer interrupção)
 }
