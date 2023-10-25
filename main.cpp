@@ -48,8 +48,14 @@ void loop()
     }
     
     adc.start();
-    sprintf(buf, "O ADC leu: %d\n", adc.get());
+    sprintf(buf, "O ADC leu em A0: %d\n", adc.get());
     uart.puts(buf);
+    adc.stop();
+
+    // adc1.start();
+    // sprintf(buf, "O ADC leu em A1: %d\n", adc1.get());
+    // uart.puts(buf);
+    // adc1.stop();
 }
 
 int main()

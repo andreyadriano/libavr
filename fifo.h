@@ -5,7 +5,7 @@ template<typename T, int N>
 class Fifo
 {
 private:
-    char data [N];
+    T data [N];
     int s,h,t;
 
 public:
