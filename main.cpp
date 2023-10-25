@@ -43,12 +43,12 @@ void loop()
     {
         char c = uart.get() + 1;
 
-        sprintf(buf,"O valor incrementado é: %c\n", c);
+        // sprintf(buf,"O valor incrementado é: %c\n", c);
         uart.puts(buf);
     }
     
     adc.start();
-    sprintf(buf, "O ADC leu em A0: %d\n", adc.get());
+    // sprintf(buf, "O ADC leu em A0: %d\n", adc.get());
     uart.puts(buf);
     adc.stop();
 
