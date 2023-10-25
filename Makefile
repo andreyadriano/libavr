@@ -2,7 +2,7 @@
 # Autor: Arliones Hoeller, IFSC-SJE
 
 APP := main.cpp
-COMPONENTS := gpio.o uart.o fifo.o adc_channel.o
+COMPONENTS := gpio.o uart.o fifo.o adc_channel.o timer.o
 SERIAL_PORT := /dev/ttyACM0
 
 CC_FLAGS := -mmcu=atmega328p

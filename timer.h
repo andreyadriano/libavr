@@ -1,21 +1,23 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
 
+typedef unsigned long long Ticks;
+typedef Ticks Microseconds;
+
 class Timer {
 private:
-    int T;
+    Microseconds tick_length;
+    Ticks ticks;
+    unsigned char tcnt_base;
 public:
-    Timer(int T);
+    static Timer * current_timer;
+
+    Timer(Microseconds t);
     ~Timer();
 
-    typedef unsigned long long ticks;
-    typedef ticks Time;
-
-    ticks get_ticks();
-
-    Time get_tick_length();
-
-    static void isr_handler();
+    void isr_handler();
+    Ticks get_ticks();
+    Microseconds get_tick_length();
 };
 
 #endif
