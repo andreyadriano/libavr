@@ -18,8 +18,8 @@ class EventQueue
 private:
     Fifo<Event*,fsize> events;
 public:
-    EventQueue();
-    ~EventQueue();
+    EventQueue(){};
+    ~EventQueue(){};
 
     void pushEvent(Event* e)
     {
@@ -41,15 +41,5 @@ public:
     }
 
 };
-
-template <int fsize>
-inline EventQueue<fsize>::EventQueue()
-{
-}
-
-template <int fsize>
-inline EventQueue<fsize>::~EventQueue()
-{
-}
 
 #endif
