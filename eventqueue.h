@@ -3,14 +3,7 @@
 
 #include "fifo.h"
 #include <avr/interrupt.h>
-
-typedef void (*EventFuncPtr)(void*);
-
-struct Event
-{
-    EventFuncPtr func;
-    void * args;
-};
+#include "event.h"
 
 template<int fsize>
 class EventQueue
