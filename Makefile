@@ -1,8 +1,8 @@
 # Arquivo: Makefile
 # Autor: Arliones Hoeller, IFSC-SJE
 
-APP := main.cpp
-COMPONENTS := gpio.o uart.o fifo.o adc_channel.o timer.o
+APP := ord_list_test.cpp
+COMPONENTS := gpio.o uart.o fifo.o adc_channel.o timer.o scaffold.o
 SERIAL_PORT := /dev/ttyACM0
 
 CC_FLAGS := -mmcu=atmega328p

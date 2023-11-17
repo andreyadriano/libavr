@@ -4,17 +4,22 @@
 #include <avr/interrupt.h>
 #include <stdio.h>
 #include "timer.h"
+#include "eventqueue.h"
 
 void int0_handler();
+void button_pressed();
 
 GPIO led(13, GPIO::OUTPUT);
-GPIO button(3, GPIO::INTERRUPT_RISING,int0_handler);
+GPIO button(2, GPIO::INTERRUPT_RISING,button_pressed);
 UART uart;
 ADC_Channel adc(0);
 ADC_Channel adc1(1);
 Timer timer(1000);
+Ticks ticks_1s;
+EventQueue<16> equeue;
+Event buttonEvent;
 
-bool state;
+volatile bool state;
 
 void int0_handler()
 {
@@ -23,44 +28,53 @@ void int0_handler()
 
 void button_pressed()
 {
-    uart.sync_put('i');
-    state = !state;
+    state = 1;
+    buttonEvent.args = (void*) 2;
+    equeue.pushEvent(&buttonEvent);
+}
+
+void handleButtonEvent(void *arg)
+{
+    int button_num = (int) arg;
+
+    char buff[16];
+    sprintf(buff, "Botao %d\n", button_num);
+    uart.puts(buff);
 }
 
 void setup()
 {
-    uart.sync_put('s');
+    buttonEvent.func = handleButtonEvent;
+    sei();
+    uart.sync_puts("Setup");
     state = 0;
-    sei();   
+
+    // ticks_1s = timer.ms_to_ticks(1000);
 }
 
 void loop()
 {
-    char buf[32];
-    led.write(state);
-    if (button.read()==1)
-        uart.puts("Button\n");
+    // char buf[32];
+    // led.write(state);
+    // if (button.read()==1)
+    //     uart.puts("Button\n");
     
-    while(uart.available() > 0)
-    {
-        char c = uart.get() + 1;
-
-        // sprintf(buf,"O valor incrementado é: %c\n", c);
-        uart.puts(buf);
-    }
+    // while(uart.available() > 0)
+    // {
+    //     char c = uart.get() + 1;
+    //     // sprintf(buf,"O valor incrementado é: %c\n", c);
+    //     uart.puts(buf);
+    // }
     
-    adc.start();
-    // sprintf(buf, "O ADC leu em A0: %d\n", adc.get());
-    uart.puts(buf);
-    adc.stop();
+    // adc.start();
+    // // sprintf(buf, "O ADC leu em A0: %d\n", adc.get());
+    // uart.puts(buf);
+    // adc.stop();
 
-    int tks;
+    // timer.delay(ticks_1s);
+    // uart.sync_put('\n');
 
-    if((tks = timer.get_ticks()) % 10 == 0)
-    {
-        sprintf(buf, "timer leu %u\n",tks);
-        uart.puts(buf);
-    }
+    equeue.run();
 
 }
 
