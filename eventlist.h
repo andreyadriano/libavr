@@ -5,7 +5,7 @@
 #include "event.h"
 #include <avr/interrupt.h>
 
-class EventList : private List<Event>
+class EventList : private List<Event*>
 {
 private:
 
@@ -17,7 +17,7 @@ public:
     {
         // insere evento na lista
         cli();
-        insert_tail(*e);
+        this->insert(e);
         sei();
 
     }
@@ -29,7 +29,7 @@ public:
         while(this->size() > 0)
         {
             cli();
-            remove_head();
+            e = this->remove_head();
             sei();
             e->func(e->args);
         }

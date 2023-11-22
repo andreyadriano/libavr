@@ -1,6 +1,9 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
 
+#include "observer.h"
+#include "list.h"
+
 typedef unsigned long long Ticks;
 typedef Ticks Milliseconds;
 typedef Ticks Microseconds;
@@ -10,6 +13,9 @@ private:
     Microseconds tick_length;
     Ticks ticks;
     unsigned char tcnt_base;
+
+    List<Observer<Microseconds> *> observers;
+
 public:
     static Timer * current_timer;
 
@@ -26,6 +32,8 @@ public:
     Microseconds ticks_to_us(Ticks ticks);
 
     void delay(Ticks tk); // busy wait
+
+    void register_observer(Observer<Microseconds> * obs);
 };
 
 #endif

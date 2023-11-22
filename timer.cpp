@@ -83,6 +83,11 @@ void Timer::isr_handler()
 {
     TCNT0 = tcnt_base;
     ticks++;
+
+    for (int i=0; i<observers.size(); i++)
+    {
+        observers.get(i)->update(this->tick_length);
+    }
 }
 
 Ticks Timer::get_ticks()
@@ -119,6 +124,11 @@ void Timer::delay(Ticks ts)
 {
     Ticks end = ticks + ts;
     while(ticks < end) ;
+}
+
+void Timer::register_observer (Observer<Microseconds> * obs)
+{
+    this->observers.insert(obs);
 }
 
 ISR(TIMER0_OVF_vect)

@@ -1,7 +1,7 @@
 # Arquivo: Makefile
 # Autor: Arliones Hoeller, IFSC-SJE
 
-APP := ord_list_test.cpp
+APP := esched_test.cpp
 COMPONENTS := gpio.o uart.o fifo.o adc_channel.o timer.o scaffold.o
 SERIAL_PORT := /dev/ttyACM0
 
