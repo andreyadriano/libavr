@@ -5,27 +5,29 @@
 #include "event.h"
 #include "timer.h"
 #include "eventlist.h"
+#include "observer.h"
 
-class EventSchedule
+class EventSchedule : public Observer<Microseconds>
 {
 private:
     List<Event*, true, Microseconds, true> events;
     EventList * elist;
 public:
-    EventSchedule(/* args */){}
-    ~EventSchedule(){}
+    EventSchedule(EventList * el) : elist(el) {}
+    ~EventSchedule() {}
 
     void schedule_event(Event *e)
     {
         events.insert_ordered(e,e->release_time);
     }
 
-    void update_list(Microseconds v)
+    void update(Microseconds v)
     {
-        Microseconds updatedTime = events.update_head_rank(v);
-        if (updatedTime <= 0)
+        Microseconds updated = events.update_head_rank(v);
+        if (updated <= 0)
         {
-            events.remove_head();
+            Event * e = events.remove_head();
+            elist->pushEvent(e);
         }
     }
 };
