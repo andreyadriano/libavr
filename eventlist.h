@@ -5,43 +5,71 @@
 #include "event.h"
 #include <avr/interrupt.h>
 
-class EventList : private List<Event*>
+class EventList 
+{
+public:
+    virtual ~EventList() {}
+
+    virtual void pushEvent(Event* e) {}
+    void run() {}
+};
+
+class PriorityList : public EventList
 {
 private:
-
+    List<Event*, true> list;
 public:
-    EventList();
-    ~EventList();
+    virtual ~PriorityList() {}
 
-    void pushEvent(Event* e)
+    virtual void pushEvent(Event* e)
     {
         // insere evento na lista
         cli();
-        this->insert(e);
+        list.insert(e, 1/e->release_time);
         sei();
-
     }
 
-    void run()
+    virtual void run()
     {
         // se há algo na lista remove e executa
         Event* e;
-        while(this->size() > 0)
+        while(list.size() > 0)
         {
             cli();
-            e = this->remove_head();
+            e = list.remove_head();
             sei();
             e->func(e->args);
         }
     }
 };
 
-EventList::EventList(/* args */)
+class EventFIFO : private List<Event*>
 {
-}
+private:
+    List<Event*> list;
+public:
+    virtual ~EventFIFO() {}
 
-EventList::~EventList()
-{
-}
+    virtual void pushEvent(Event* e)
+    {
+        // insere evento na lista
+        cli();
+        list.insert(e);
+        sei();
+    }
+
+    virtual void run()
+    {
+        // se há algo na lista remove e executa
+        Event* e;
+        while(list.size() > 0)
+        {
+            cli();
+            e = list.remove_head();
+            sei();
+            e->func(e->args);
+        }
+    }
+};
 
 #endif

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <avr/interrupt.h>
 
-EventList evlist;
+PriorityList evlist;
 EventSchedule evsched(&evlist);
 Timer timer(8000);
 UART uart;
