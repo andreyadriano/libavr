@@ -10,6 +10,7 @@ struct Event
     EventFuncPtr func;
     void * args;
     Microseconds release_time;
+    Microseconds deadline;
 };
 
 #endif

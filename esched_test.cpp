@@ -22,7 +22,7 @@ void string_1sec(void * x)
 
 void string_2sec(void * x)
 {
-    uart.sync_puts("Evento 2 segundos\n");
+    uart.puts("Evento 2 segundos\n");
     evsched.schedule_event(&str_2sec);
 }
 
