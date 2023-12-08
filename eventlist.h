@@ -39,6 +39,8 @@ public:
             e = list.remove_head();
             sei();
             e->func(e->args);
+
+            // Aqui verificar se o tempo de execução é maior que o deadline e avisar sobre a falha
         }
     }
 

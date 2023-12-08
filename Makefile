@@ -1,7 +1,7 @@
 # Arquivo: Makefile
 # Autor: Arliones Hoeller, IFSC-SJE
 
-APP := esched_test.cpp
+APP := infeasible_edd_test.cpp
 COMPONENTS := gpio.o uart.o fifo.o adc_channel.o timer.o scaffold.o
 SERIAL_PORT := /dev/ttyACM0
 
