@@ -69,3 +69,13 @@ A classe EventSchedule é um escalonador de eventos que utiliza uma lista para a
 
 ## EVENT SCHEDULE EDD
 A classe EventScheduleEDD é um escalonador de eventos que utiliza uma lista EDD para armazenar os eventos. Ela implementa o Observer para ser notificada quando um evento for adicionado à lista e insere os eventos na lista utilizando o deadline como rank.
+
+## Códigos de teste:
+
+- fifo_test: implementa um teste da FIFO
+- list_test.cpp: implementa um teste da lista encadeada
+- ord_list_test.cpp: implementa um teste da lista ordenada, relativa e ranqueada.
+- event_list_test.cpp: implementa um teste da lista de eventos FIFO (EventFIFO)
+- esched_test: implementa um teste do escalonador RMS (EventSchedule) e lista de eventos ranqueada (PriorityList)
+- feasible_edd_test: implementa um teste do escalonador EDD e lista de eventos ranqueada por deadline (EventListEDD) para um caso em que o escalonamento é possível
+- infeasible_edd_test: implementa um teste do escalonador EDD e lista de eventos ranqueada por deadline (EventListEDD) para um caso em que o escalonamento não é possível

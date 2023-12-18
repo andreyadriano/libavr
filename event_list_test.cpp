@@ -17,7 +17,7 @@ ADC_Channel adc(0);
 ADC_Channel adc1(1);
 Timer timer(1000);
 Ticks ticks_1s;
-EventList eventList;
+EventFIFO eventList;
 Event buttonEvent;
 
 volatile bool state;
