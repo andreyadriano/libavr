@@ -4,6 +4,9 @@
 #include "list.h"
 #include "event.h"
 #include <avr/interrupt.h>
+#include "timer.h"
+#include "uart.h"
+#include <stdio.h>
 
 class EventList 
 {
@@ -18,7 +21,10 @@ class EventListEDD : public EventList
 {
 private:
     List<Event*, true, Microseconds, true> list;
+    Timer * timer;
+    UART * uart;
 public:
+    EventListEDD(Timer * timer, UART * uart) : timer(timer), uart(uart) {}
     virtual ~EventListEDD() {}
 
     virtual void pushEvent(Event* e)
@@ -39,8 +45,13 @@ public:
             e = list.remove_head();
             sei();
             e->func(e->args);
+            // Microseconds now = timer->ticks_to_us(timer->get_ticks());
 
-            // Aqui verificar se o tempo de execução é maior que o deadline e avisar sobre a falha
+            // if (now >= e->deadline)
+            // {
+            //     // Aqui verifica se o tempo de execução é maior que o deadline e avisa sobre a falha
+            //     uart->puts("Deadline missed!\n");
+            // }
         }
     }
 

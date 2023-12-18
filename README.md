@@ -39,3 +39,33 @@ O GPIO permite a leitura e escrita nos pinos de entrada e saída digital do micr
 
 ## ADC
 O ADC serve para realizar a conversão de um sinal analógico em um sinal digital em múltiplos canais. Ele utilza uma FIFO para armazenar os dados que são convertidos e trabalha fazendo uma conversão por vez. Ele faz a conversão medindo a tensão em um pino de entrada analógica e transforma o valor em um número de 10 bits (0 a 1023).
+
+## TIMER
+O Timer é uma classe com a função de gerenciar o tempo do sistema em microssegundos utilizando uma contagem de "ticks". Ela utiliza o padrão Observer para permitir que outras classes sejam notificadas quando terminar a contagem e possui funções para iniciar e pausar o timer, além de adicionar observadores.
+
+## OBSERVER
+O Observer é um padrão de projeto que permite que uma classe notifique outras classes quando ocorrer uma mudança de estado. Ele é utilizado no Timer para notificar quando a contagem terminar.
+
+## LIST
+A classe list é uma lista duplamente encadeada que permite a inserção e remoção de elementos em qualquer posição da lista. Ela possui funções para inserir e remover elementos, além de funções para obter o tamanho da lista e para obter o elemento em uma posição específica. Ela pode também ser utilizada com uma lista relativa e ranqueada.
+
+## EVENT
+A struct Event é utilizada para armazenar os dados de um evento que será adicionado à fila de eventos. Ela possui um ponteiro para uma função que será executada quando o evento for processado e um ponteiro para dados que serão passados como argumento da função.
+
+## EVENT QUEUE
+A classe EventQueue é uma fila de eventos que utiliza um buffer da classe FIFO para armazenar os eventos. Ela possui funções para adicionar e processar eventos, além de funções para obter o tamanho da fila e para verificar se a fila está vazia.
+
+## EVENT LIST
+A classe EventList é uma classe abstrata que serve como base para as classes PriorityList e EventListEDD. Ela possui funções para adicionar e processar eventos.
+
+## PRIORITY LIST
+A classe PriorityList é uma lista ranqueada que herda da classe EventList. Ela utiliza como rank o release time do evento, ou seja, quanto menor o release time, maior a prioridade. É utilizada pela classe EventSchedule para implementar um escalonador RMS.
+
+## EVENT LIST EDD
+A classe EventListEDD é uma lista relativa que herda da classe EventList. Ela utiliza como rank o deadline do evento, ou seja, quanto menor o deadline, maior a prioridade. É utilizada pela classe EventSchedule para implementar um escalonador EDD.
+
+## EVENT SCHEDULE
+A classe EventSchedule é um escalonador de eventos que utiliza uma lista para armazenar os eventos. A lista utilizada pode ser tanto uma PriorityList quanto uma EventFIFO. Ela implementa o Observer para ser notificada quando um evento for adicionado à lista.
+
+## EVENT SCHEDULE EDD
+A classe EventScheduleEDD é um escalonador de eventos que utiliza uma lista EDD para armazenar os eventos. Ela implementa o Observer para ser notificada quando um evento for adicionado à lista e insere os eventos na lista utilizando o deadline como rank.

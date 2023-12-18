@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <avr/interrupt.h>
 
-EventListEDD evlist;
-EventScheduleEDD evsched(&evlist);
 Timer timer(8000);
 UART uart;
+EventListEDD evlist(&timer, &uart);
+EventScheduleEDD evsched(&evlist);
 char buffer[64];
 
 Event t0;
@@ -20,26 +20,31 @@ Event t4;
 void task0(void * x)
 {
     uart.puts("Task 0\n");
+    timer.delay(timer.us_to_ticks(1000000));
 }
 
 void task1(void * x)
 {
     uart.puts("Task 1\n");
+    timer.delay(timer.us_to_ticks(2000000));
 }
 
 void task2(void * x)
 {
     uart.puts("Task 2\n");
+    timer.delay(timer.us_to_ticks(1000000));
 }
 
 void task3(void * x)
 {
     uart.puts("Task 3\n");
+    timer.delay(timer.us_to_ticks(4000000));
 }
 
 void task4(void * x)
 {
     uart.puts("Task 4\n");
+    timer.delay(timer.us_to_ticks(2000000));
 }
 
 void setup()
