@@ -1,18 +1,8 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/He3J_i_X)
 # IFSC - Sistemas Embarcados - LibAVR
 
-Nesta atividade construiremos uma biblioteca de funções de baixo-nível para uso na CPU AVR e na Placa Arduino. Usaremos as ferramentas do GCC e construiremos o sofware em C++.
+Este repositório implementa uma biblioteca para uso na CPU AVR e no microcontrolador Arduino. São utilizadas as ferramentas do GCC e o software é construído em C++.
 
-Para construir a biblioteca os alunos devem seguir as orientações do professor, a serem registradas através do sistema acadêmico.
-
-## Ao final, a biblioteca deverá incluir
-
-* Uma HAL para os seguintes componentes de hardware: GPIO, UART, ADC, Timer, SPI;
-* Um serviço de fila de funções para escanolamento de tarefas;
-* Utilitários de Fifo e Lista lineares;
-* Utilitário de gerenciamento de tempo (delay, etc).
-
-## Para gerar binários e programar a MCU
+## Como gerar binários e programar a MCU
 
 A biblioteca inclui um Makefile com as regras para geração do binário e programação do dispositivo. Algumas variáveis podem ser configuradas:
 
